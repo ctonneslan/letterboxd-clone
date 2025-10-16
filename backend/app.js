@@ -6,6 +6,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
 import movieRoutes from "./routes/movies.js";
+import reviewRoutes from "./routes/reviews.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,6 +31,9 @@ export function createApp() {
 
   // Movies routes
   app.use("/api/movies", movieRoutes);
+
+  // Reviews routes
+  app.use("/api/reviews", reviewRoutes);
 
   // Serve static files
   app.use(express.static(path.join(__dirname, "../frontend")));
