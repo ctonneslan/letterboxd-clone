@@ -27,12 +27,12 @@ export function createApp() {
   });
 
   // 404 handler for API routes
-  app.get("/api/*", (_req, res) => {
+  app.get("/api/{*splat}", (_req, res) => {
     res.status(404).json({ error: "API endpoint not found" });
   });
 
   // Serve index.html for any other routes (SPA fallback)
-  app.get("*", (_req, res) => {
+  app.get("/*splat", (_req, res) => {
     res.sendFile(path.join(__dirname, "../frontend", "index.html"));
   });
 
