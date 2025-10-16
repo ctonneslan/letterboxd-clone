@@ -1,5 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
+import "./config/env.js"; // Load environment variables first
 import { createApp } from "./app.js";
 
 const app = createApp();

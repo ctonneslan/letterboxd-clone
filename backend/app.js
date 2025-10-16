@@ -5,6 +5,7 @@ import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
+import movieRoutes from "./routes/movies.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,7 +25,11 @@ export function createApp() {
     res.json({ status: "ok", service: "letterboxd-clone" });
   });
 
+  // Authentication routes
   app.use("/api/auth", authRoutes);
+
+  // Movies routes
+  app.use("/api/movies", movieRoutes);
 
   // Serve static files
   app.use(express.static(path.join(__dirname, "../frontend")));
