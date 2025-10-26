@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    container_name: letterboxd-backend
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: letterboxd_clone
+      DB_USER: postgres
+      DB_PASSWORD: postgres_dev_password
+      DATABASE_URL: postgresql://postgres:postgres_dev_password@postgres:5432/letterboxd_clone
+      JWT_SECRET: dev_jwt_secret_change_in_production_minimum_32_characters
+      JWT_EXPIRES_IN: 7d
+      JWT_REFRESH_SECRET: dev_refresh_secret_change_in_production_minimum_32_characters
+      JWT_REFRESH_EXPIRES_IN: 30d
+      FRONTEND_URL: http://localhost:5173
+      RATE_LIMIT_WINDOW_MS: 900000
+      RATE_LIMIT_MAX_REQUESTS: 100
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/migrations:/app/migrations
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: letterboxd-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_dev_password
+      POSTGRES_DB: letterboxd_clone
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - app-network
+
+volumes:
+  postgres-data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge
