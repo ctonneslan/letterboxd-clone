@@ -25,7 +25,7 @@ export default function Movies() {
           default:
             response = await moviesAPI.getPopular();
         }
-        setMovies(response.data.results);
+        setMovies(response.results);
       } catch (error) {
         console.error('Failed to fetch movies:', error);
       } finally {

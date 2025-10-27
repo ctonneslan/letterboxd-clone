@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     const response = await authAPI.login(credentials);
-    const { user, accessToken, refreshToken } = response.data;
+    const { user, accessToken, refreshToken } = response.data.data;
 
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('accessToken', accessToken);
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (userData) => {
     const response = await authAPI.signup(userData);
-    const { user, accessToken, refreshToken } = response.data;
+    const { user, accessToken, refreshToken } = response.data.data;
 
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('accessToken', accessToken);

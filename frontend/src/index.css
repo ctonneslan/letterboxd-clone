@@ -1,6 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-letterboxd-green: #00e054;
+  --color-letterboxd-orange: #ff8000;
+  --color-dark-bg: #14181c;
+  --color-dark-card: #2c3440;
+}
 
 body {
   margin: 0;

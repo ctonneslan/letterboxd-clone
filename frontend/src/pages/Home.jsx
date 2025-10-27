@@ -15,8 +15,8 @@ export default function Home() {
           moviesAPI.getTrending('week', 1),
         ]);
 
-        setPopular(popularRes.data.results.slice(0, 6));
-        setTrending(trendingRes.data.results.slice(0, 6));
+        setPopular(popularRes.results.slice(0, 6));
+        setTrending(trendingRes.results.slice(0, 6));
       } catch (error) {
         console.error('Failed to fetch movies:', error);
       } finally {

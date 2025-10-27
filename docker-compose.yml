@@ -25,6 +25,8 @@ services:
       FRONTEND_URL: http://localhost:5173
       RATE_LIMIT_WINDOW_MS: 900000
       RATE_LIMIT_MAX_REQUESTS: 100
+      TMDB_API_KEY: 03739346ad2884d0783eed367fe05ce0
+      TMDB_BASE_URL: https://api.themoviedb.org/3
     volumes:
       - ./backend/src:/app/src
       - ./backend/migrations:/app/migrations
