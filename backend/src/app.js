@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 import { checkDatabaseHealth } from "./config/database.js";
 import authRoutes from "./routes/auth.js";
 import movieRoutes from "./routes/movies.js";
+import reviewRoutes from "./routes/reviews.js";
 
 export function createApp(options = {}) {
   const { db, config = {} } = options;
@@ -119,6 +120,7 @@ export function createApp(options = {}) {
   // API Routes
   app.use("/api/v1/auth", authRoutes);
   app.use("/api/v1/movies", movieRoutes);
+  app.use("/api/v1/reviews", reviewRoutes);
 
   // 404 handler - must be after all routes
   app.use((req, res) => {
