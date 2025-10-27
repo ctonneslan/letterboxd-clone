@@ -6,6 +6,8 @@ import { checkDatabaseHealth } from "./config/database.js";
 import authRoutes from "./routes/auth.js";
 import movieRoutes from "./routes/movies.js";
 import reviewRoutes from "./routes/reviews.js";
+import listRoutes from "./routes/lists.js";
+import watchlistRoutes from "./routes/watchlist.js";
 
 export function createApp(options = {}) {
   const { db, config = {} } = options;
@@ -121,6 +123,8 @@ export function createApp(options = {}) {
   app.use("/api/v1/auth", authRoutes);
   app.use("/api/v1/movies", movieRoutes);
   app.use("/api/v1/reviews", reviewRoutes);
+  app.use("/api/v1/lists", listRoutes);
+  app.use("/api/v1/watchlist", watchlistRoutes);
 
   // 404 handler - must be after all routes
   app.use((req, res) => {
