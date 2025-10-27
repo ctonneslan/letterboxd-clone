@@ -3,11 +3,20 @@ import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import { checkDatabaseHealth } from "./config/database.js";
+import authRoutes from "./routes/auth.js";
 
 export function createApp(options = {}) {
   const { db, config = {} } = options;
 
   const app = express();
+
+  // Attach database to request object for all routes
+  if (db) {
+    app.use((req, res, next) => {
+      req.db = db;
+      next();
+    });
+  }
 
   app.use(helmet());
   app.use(
@@ -106,6 +115,10 @@ export function createApp(options = {}) {
     });
   });
 
+  // API Routes
+  app.use("/api/v1/auth", authRoutes);
+
+  // 404 handler - must be after all routes
   app.use((req, res) => {
     res.status(404).json({
       error: "Not Found",
